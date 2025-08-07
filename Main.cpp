@@ -3,6 +3,7 @@
 #include <Windows.h>
 
 #include "Application.h"
+#include "Exception.h"
 
 using namespace Client;
 
@@ -12,9 +13,20 @@ using namespace Client;
  */
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
 {
-    auto application = Application(640, 480);
+    try
+    {
+        auto application = Application(640, 480);
 
-    application.Run();
+        application.Run();
+    }
+    catch (const Exception& e)
+    {
+        MessageBox(nullptr, e.GetDescription().c_str(), e.GetType().c_str(), MB_OK | MB_ICONEXCLAMATION);
+    }
+    catch (...)
+    {
+        MessageBox(nullptr, "Unknown", "Unknown", MB_OK | MB_ICONEXCLAMATION);
+    }
 
     return -1;
 }

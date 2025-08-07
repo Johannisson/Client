@@ -19,6 +19,12 @@
     <Filter Include="Header Files\Input">
       <UniqueIdentifier>{f292965d-b040-4cdd-a971-a208bdbe23d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Exception">
+      <UniqueIdentifier>{ad6cf08c-5a89-4bb8-a078-a0966ca752b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Exception">
+      <UniqueIdentifier>{f691eb10-b993-4e25-a848-5db596e52bbf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -44,6 +50,9 @@
     </ClCompile>
     <ClCompile Include="MouseEvent.cpp">
       <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Exception.cpp">
+      <Filter>Source Files\Exception</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="MouseRawEvent.h">
       <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Exception.h">
+      <Filter>Header Files\Exception</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
