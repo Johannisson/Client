@@ -1,7 +1,10 @@
 #pragma once
 
+#include <string>
 #include <optional>
 
+#include "Keyboard.h"
+#include "Mouse.h"
 #include "Size.h"
 #include "WindowClass.h"
 
@@ -26,12 +29,29 @@ namespace Client
         static LRESULT CALLBACK HandleMessageProxy(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
         LRESULT CALLBACK HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
 
+        static bool IsSystemMessage(UINT msg) noexcept;
+        static bool IsKeyboardMessage(UINT msg) noexcept;
+        static bool IsRawInputMessage(UINT msg) noexcept;
+        static bool IsMouseMessage(UINT msg) noexcept;
+        static void HandleSystemMessage(UINT msg) noexcept;
+        void HandleKeyboardMessage(UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
+        void HandleRawInputMessage(LPARAM lParam) noexcept;
+        void HandleMouseMessage(UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
+        void OnMouseMove(int x, int y, WPARAM wParam) noexcept;
+
     public:
         static std::optional<WPARAM> ProcessMessages();
+        void SetTitle(const std::string& title) const noexcept;
+
+        Keyboard Keyboard;
+        Mouse Mouse;
 
     private:
         HWND _hWnd;
         WindowClass _windowClass;
         DWORD _windowStyle = WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU;
+        int _width;
+        int _height;
+        std::vector<BYTE> _rawInputBuffer;
     };
 }
