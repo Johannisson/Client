@@ -15,6 +15,15 @@ namespace Client
             {
                 return *code;
             }
+
+            Frame();
         }
+    }
+
+    void Application::Frame()
+    {
+        _window.GetGraphics().ClearBuffer(1.0f, 1.0f, 0.0f);
+
+        _window.GetGraphics().EndFrame();
     }
 }

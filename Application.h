@@ -14,6 +14,8 @@ namespace Client
         WPARAM Run();
 
     private:
+        void Frame();
+
         Window _window;
     };
 }

@@ -19,7 +19,7 @@ namespace Client
         Keyboard(Keyboard&&) = delete;
 
         Keyboard& operator=(const Keyboard&) = delete;
-        Keyboard& operator=(Keyboard&& keyboard) = delete;
+        Keyboard& operator=(Keyboard&& _) = delete;
 
         bool IsKeyPressed(unsigned char keyCode) noexcept;
         void ClearKeyState() noexcept;

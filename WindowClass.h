@@ -14,7 +14,7 @@ namespace Client
         ~WindowClass();
 
         WindowClass& operator=(const WindowClass&) = delete;
-        WindowClass& operator=(WindowClass&& vector) = delete;
+        WindowClass& operator=(WindowClass&& _) = delete;
 
 
         [[nodiscard]] LPCSTR GetName() const noexcept;

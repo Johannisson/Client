@@ -3,6 +3,8 @@
 
 #include "Window.h"
 
+#include "GraphicsNotFoundException.h"
+
 namespace Client
 {
     /**
@@ -30,6 +32,10 @@ namespace Client
         );
 
         ShowWindow(_hWnd, SW_SHOWDEFAULT);
+
+        _pGraphics = std::make_unique<Graphics>(_hWnd, width, height);
+
+        RegisterRawMouseInputDevice();
     }
 
     /**
@@ -51,6 +57,20 @@ namespace Client
         AdjustWindowRect(&rect, _windowStyle, FALSE);
 
         return {rect.right - rect.left, rect.bottom - rect.top};
+    }
+
+    void Window::RegisterRawMouseInputDevice()
+    {
+        RAWINPUTDEVICE device;
+        device.usUsagePage = 0x01;
+        device.usUsage = 0x02;
+        device.dwFlags = 0;
+        device.hwndTarget = nullptr;
+
+        if (RegisterRawInputDevices(&device, 1, sizeof(device)) == false)
+        {
+            throw Exception("Unable to register raw mouse input.");
+        }
     }
 
     LRESULT CALLBACK Window::HandleMessageSetup(const HWND hWnd, const UINT msg, const WPARAM wParam, const LPARAM lParam) noexcept
@@ -248,5 +268,14 @@ namespace Client
     void Window::SetTitle(const std::string& title) const noexcept
     {
         SetWindowText(_hWnd, title.c_str());
+    }
+
+    Graphics& Window::GetGraphics() const
+    {
+        if (!_pGraphics)
+        {
+            throw GraphicsNotFoundException("Graphics has not been created.");
+        }
+        return *_pGraphics;
     }
 }
